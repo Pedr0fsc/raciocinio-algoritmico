@@ -25,8 +25,11 @@ num_sum = sum(num_list)
 
 num_amplitude = num_list[-1] - num_list[0]
 
+print("Lista: ", num_list)
+print("Números pares: ", even_num_list)
+print("Números ímpares: ", odd_num_list)
 
 print("a) Soma dos números da lista: ", num_sum)
-print("b) Soma dos números pares: ", )
-print("c) Soma dos números ímpares: ", )
+print("b) Soma dos números pares: ", sum(even_num_list))
+print("c) Soma dos números ímpares: ", sum(odd_num_list))
 print("d) Amplitude da lista: ", num_amplitude)
