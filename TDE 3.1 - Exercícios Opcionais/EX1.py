@@ -12,7 +12,7 @@ odd_num_list = []
 
 i = int(input("Informe quantos números você quer digitar: "))
 
-for i in range(0, i):
+for i in range(1, i + 1):
     num = int(input("Digite um número: "))
     num_list.append(num)
     if num % 2 == 0:
