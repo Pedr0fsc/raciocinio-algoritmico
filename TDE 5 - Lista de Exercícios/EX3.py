@@ -1,0 +1,1 @@
+# Leia três números do teclado e verificar se o primeiro é maior que a soma dos outros dois.

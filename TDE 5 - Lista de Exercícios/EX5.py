@@ -1,0 +1,1 @@
+# Ler 4 números inteiros e calcular a soma dos que forem par.

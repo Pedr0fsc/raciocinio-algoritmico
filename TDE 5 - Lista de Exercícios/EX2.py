@@ -1,0 +1,1 @@
+# Construa a tabela de multiplicação de 1 a 10 utilizando apenas um laço de repetição.
