@@ -6,29 +6,41 @@
 
 cidades = ["Curitiba (0)", "Florianópolis (1)", "Porto Alegre (2)", "São Paulo (3)", "Rio de Janeiro (4)"]
 print(f"{cidades}\n")
+
 cidade_1 = int(input("Diga de qual cidade você vai sair: "))
 cidade_2 = int(input("Diga para qual cidade você vai: "))
 
-matriz = [[" - ", 310, 716, 408, 852],
-          [310, " - ", 470, 705, 1144],
-          [716, 470, " - ", 1119, 1553],
-          [408, 705, 1119, " - ", 429],
-          [852, 1144, 1553, 429, " - "]]
+matriz = [
+    [" - ", 310, 716, 408, 852],
+    [310, " - ", 470, 705, 1144],
+    [716, 470, " - ", 1119, 1553],
+    [408, 705, 1119, " - ", 429],
+    [852, 1144, 1553, 429, " - "]
+]
 
-print("Tabela de distâncias: ")
+print("\nTabela de distâncias (em km):")
 for i in range(len(matriz)):
     for j in range(len(matriz[0])):
-        print(matriz[i][j], end = ' | ')
+        print(f"{matriz[i][j]:>4}", end=' | ')
     print()
 
-print("O quão veloz você vai viajar? (km/h)")
-velocidade = int(input("V: "))
+velocidade = int(input("\nO quão veloz você vai viajar? (km/h): "))
 
-tempo_decimal = round(matriz[cidade_1][cidade_2] / velocidade, 2)
-tempo_horas = round((0.6 * tempo_decimal) * 100, 0)
+distancia = matriz[cidade_1][cidade_2]
 
-if tempo_horas > 60:
-    tempo_horas = round(tempo_horas / 60, 2)
-    print(f"Você está viajando de {cidades[cidade_1]} até {cidades[cidade_2]}, à uma velocidade de {velocidade}km/h\nO percurso possui {matriz[cidade_1][cidade_2]}km de distância\nSua viagem vai levar cerca de {tempo_horas} horas\n")
+if isinstance(distancia, str):
+    print("Você selecionou a mesma cidade como origem e destino.")
 else:
-    print(f"Você está viajando de {cidades[cidade_1]} até {cidades[cidade_2]}, à uma velocidade de {velocidade}km/h\nO percurso possui {matriz[cidade_1][cidade_2]}km de distância\nSua viagem vai levar cerca de {tempo_horas} minutos\n")
+    tempo_horas_decimal = distancia / velocidade
+    horas = int(tempo_horas_decimal)
+    minutos = round((tempo_horas_decimal - horas) * 60)
+
+    print(f"\nVocê está viajando de {cidades[cidade_1]} até {cidades[cidade_2]}, à uma velocidade de {velocidade}km/h.")
+    print(f"O percurso possui {distancia} km de distância.")
+
+    if horas > 0 and minutos > 0:
+        print(f"Sua viagem vai levar cerca de {horas} horas e {minutos} minutos.")
+    elif horas > 0:
+        print(f"Sua viagem vai levar cerca de {horas} horas.")
+    else:
+        print(f"Sua viagem vai levar cerca de {minutos} minutos.")

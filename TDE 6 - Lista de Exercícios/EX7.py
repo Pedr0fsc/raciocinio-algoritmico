@@ -3,30 +3,73 @@
 # compõem o roteiro fornecido, a distância de cada percurso intermediário e a distância total do roteiro
 # fornecido.
 
-cidades = ["Curitiba (0)", "Florianópolis (1)", "Porto Alegre (2)", "São Paulo (3)", "Rio de Janeiro (4)"]
-print(f"{cidades}\n")
-percurso = int(input("Informe as cidades que você vai visitar: "))
+cidades = ["Curitiba", "Florianópolis", "Porto Alegre", "São Paulo", "Rio de Janeiro"]
 
-matriz = [[" - ", 310, 716, 408, 852],
-          [310, " - ", 470, 705, 1144],
-          [716, 470, " - ", 1119, 1553],
-          [408, 705, 1119, " - ", 429],
-          [852, 1144, 1553, 429, " - "]]
+print("Códigos das cidades disponíveis:")
+for i, nome in enumerate(cidades):
+    print(f"{nome} ({i})")
 
-print("Tabela de distâncias: ")
-for i in range(len(matriz)):
-    for j in range(len(matriz[0])):
-        print(matriz[i][j], end = ' | ')
-    print()
+percurso = []
+print("\nDigite os códigos das cidades do seu roteiro. Digite -1 para finalizar.")
+while True:
+    codigo = int(input("Cidade: "))
+    if codigo == -1:
+        if len(percurso) < 2:
+            print("Informe pelo menos duas cidades.")
+            continue
+        break
+    elif 0 <= codigo < len(cidades):
+        percurso.append(codigo)
+    else:
+        print("Código inválido. Tente novamente.")
 
-print("O quão veloz você vai viajar? (km/h)")
-velocidade = int(input("V: "))
+matriz = [
+    [" - ", 310, 716, 408, 852],
+    [310, " - ", 470, 705, 1144],
+    [716, 470, " - ", 1119, 1553],
+    [408, 705, 1119, " - ", 429],
+    [852, 1144, 1553, 429, " - "]
+]
 
-tempo_decimal = round(matriz[cidade_1][cidade_2] / velocidade, 2)
-tempo_horas = round((0.6 * tempo_decimal) * 100, 0)
+velocidade = int(input("\nQual a velocidade média da viagem? (km/h): "))
 
-if tempo_horas > 60:
-    tempo_horas = round(tempo_horas / 60, 2)
-    print(f"Você está viajando de {cidades[cidade_1]} até {cidades[cidade_2]}, à uma velocidade de {velocidade}km/h\nO percurso possui {matriz[cidade_1][cidade_2]}km de distância\nSua viagem vai levar cerca de {tempo_horas} horas\n")
+print("\n--- Roteiro da Viagem ---")
+distancia_total = 0
+tempo_total_horas = 0
+
+for i in range(len(percurso) - 1):
+    origem = percurso[i]
+    destino = percurso[i + 1]
+    distancia = matriz[origem][destino]
+
+    if isinstance(distancia, str):
+        print(f"{cidades[origem]} -> {cidades[destino]}: mesma cidade (0 km, 0 minutos).")
+        continue
+
+    tempo_horas = distancia / velocidade
+    horas = int(tempo_horas)
+    minutos = round((tempo_horas - horas) * 60)
+
+    print(f"{cidades[origem]} -> {cidades[destino]}: {distancia} km, tempo estimado: ", end="")
+    if horas > 0 and minutos > 0:
+        print(f"{horas} horas e {minutos} minutos.")
+    elif horas > 0:
+        print(f"{horas} horas.")
+    else:
+        print(f"{minutos} minutos.")
+
+    distancia_total += distancia
+    tempo_total_horas += tempo_horas
+
+horas_total = int(tempo_total_horas)
+minutos_total = round((tempo_total_horas - horas_total) * 60)
+
+print("\n--- Resumo da Viagem ---")
+print(f"Distância total: {distancia_total} km")
+print("Tempo total estimado: ", end="")
+if horas_total > 0 and minutos_total > 0:
+    print(f"{horas_total} horas e {minutos_total} minutos.")
+elif horas_total > 0:
+    print(f"{horas_total} horas.")
 else:
-    print(f"Você está viajando de {cidades[cidade_1]} até {cidades[cidade_2]}, à uma velocidade de {velocidade}km/h\nO percurso possui {matriz[cidade_1][cidade_2]}km de distância\nSua viagem vai levar cerca de {tempo_horas} minutos\n")
+    print(f"{minutos_total} minutos.")
