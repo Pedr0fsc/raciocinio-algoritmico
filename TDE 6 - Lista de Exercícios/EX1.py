@@ -6,14 +6,19 @@
 import random
 
 m = []
-v = []
 
 for i in range(0, 4):
     linha_m = []
     for j in range(0, 4):
         linha_m.append(random.randint(0, 9))
     m.append(linha_m)
-    maior = max(linha_m)
+
+v = []
+for col in range(4):
+    maior = m[0][col]
+    for lin in range(1, 4):
+        if m[lin][col] > maior:
+            maior = m[lin][col]
     v.append(maior)
 
 print("Matriz: ")
@@ -22,4 +27,7 @@ for i in range(len(m)):
         print(m[i][j], end = ' | ')
     print()
 
-print(v)
+print("Vetor com o maior elemento de cada coluna: ", v)
+
+med = sum(v) / len(v)
+print("Média aritmética do vetor: ", med)
